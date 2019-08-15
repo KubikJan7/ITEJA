@@ -2,17 +2,13 @@ package interpreter;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Stack;
-//dsfdfs
+
 public class Main {
 
     public static void main(String[] args) throws FileNotFoundException, IOException {
         FileReader fileReader = new FileReader("./gourmet_sample_0.txt");
-        Stack<Character> source = fileReader.loadRecipe();
-        for (Object c : source) {
-            System.out.print((char) c);
-        }
-        //sdfsdfsdfdsfdsf
+        String code = fileReader.loadRecipe();
+        System.out.print(code);
     }
 
 }
