@@ -1,4 +1,4 @@
-package interpreter;
+package gourmetInterpreter;
 
 public enum TokenTypeEnum {
 

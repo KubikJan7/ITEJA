@@ -1,4 +1,4 @@
-package interpreter;
+package gourmetInterpreter;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;

@@ -1,4 +1,4 @@
-package interpreter;
+package gourmetInterpreter;
 
 public class Token<V> {
     private TokenTypeEnum tokenType;
