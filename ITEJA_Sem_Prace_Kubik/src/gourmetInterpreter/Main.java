@@ -1,5 +1,8 @@
-package gourmet.interpreter;
+package gourmetInterpreter;
 
+import gourmetInterpreter.lexer.FileReader;
+import gourmetInterpreter.lexer.Lexer;
+import gourmetInterpreter.lexer.Token;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 

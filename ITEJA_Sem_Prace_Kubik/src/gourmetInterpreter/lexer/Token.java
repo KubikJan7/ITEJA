@@ -1,4 +1,4 @@
-package gourmet.interpreter;
+package gourmetInterpreter.lexer;
 
 public class Token<V> {
     private TokenTypeEnum tokenType;

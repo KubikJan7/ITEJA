@@ -1,4 +1,4 @@
-package gourmet.interpreter;
+package gourmetInterpreter.parser;
 
 import java.util.Stack;
 
