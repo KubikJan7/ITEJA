@@ -7,28 +7,32 @@ public enum TokenTypeEnum {
     INTO("into"), //used to identify the bowl (stack)
     REMOVE("remove"), //remove the value of the variable from the top element of the bowl
     FROM("from"), //used to identify the bowl (stack)
-    LIQUEFY("liquefy"), //change the type of the variable to liquid (characters)
-    SOLIDIFY("solidify"), //change the type of the variable to dry substance (integer)
+    LIQUEFY("liquefy"), //change the type of the variable to liquid (integer)
+    SOLIDIFY("solidify"), //change the type of the variable to dry substance (character)
     OF("of"),// used to identify the bowl (stack)
-    POUR_CONTENTS("pour contents"), // copy the elements from the bowl to the dish, preserving their order and putting them on top of the elements which have already been in the dish.
+    POUR("pour"), // copy the elements from the bowl to the dish, preserving their order and putting them on top of the elements which have already been in the dish.
+    CONTENTS("contents"),
     CLEAN("clean"), // delete all elements of the bowl
     FOR("for"), // for cycle
     IN("in"), // used to identify the bowl (stack)
     END("end"), // end of for cyclus
     INGREDIENTS("ingredients"), // name of the block where all ingredients (variables) will be declared and initialized
+    EQUIPMENT("equipment"), //name of the block where all bowls (stacks) will be declared
     METHOD("method"), // name of the block where the main logic of the program will be contained
-    BAKING_DISH("baking_dish"), // baking dishes are used only to print the result.
+    BAKING("baking"), // baking dishes are used only to print the result.
+    DISH("dish"),
     SERVES("serves"), // prints the content of the of the baking dish. The elements in each dish are printed from top of the stack to the bottom
+    EOL("."), //end of line
 
-    //DATA TYPES
-    ML("ml"), //mililitres => character
-    G("g"), //grams => number
+    ML("ml"), //mililitres => integer
+    G("g"), //grams => character
     //if not specified it's consider as number
 
-    
-    INTEGER(""),
-    VAR(""),
-    EOL("."); //end of line
+    TITLE("title"), //name of the recipe
+    COMMENT("comment"), //comment after the title
+    INTEGER("int"),
+    CHAR("char"),
+    VARIABLE("variable"); //names of ingredients and bowls
 
     private final String jmeno;
 
@@ -43,5 +47,74 @@ public enum TokenTypeEnum {
     @Override
     public String toString() {
         return this.getName();
+    }
+
+    public static boolean isKeyword(String string) {
+        if (string.equals(PUT.toString()) || string.equals(INTO.toString())
+                || string.equals(REMOVE.toString()) || string.equals(FROM.toString())
+                || string.equals(LIQUEFY.toString()) || string.equals(SOLIDIFY.toString())
+                || string.equals(OF.toString()) || string.equals(POUR.toString())
+                || string.equals(CONTENTS.toString()) || string.equals(CLEAN.toString())
+                || string.equals(FOR.toString()) || string.equals(IN.toString())
+                || string.equals(END.toString()) || string.equals(INGREDIENTS.toString())
+                || string.equals(METHOD.toString()) || string.equals(EQUIPMENT.toString()) || string.equals(BAKING.toString())
+                || string.equals(DISH.toString()) || string.equals(SERVES.toString())
+                || string.equals(ML.toString()) || string.equals(G.toString())
+                || string.equals(EOL.toString())) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static TokenTypeEnum getKeyword(String string) {
+        switch (string) {
+            case "put":
+                return PUT;
+            case "into":
+                return INTO;
+            case "remove":
+                return REMOVE;
+            case "from":
+                return FROM;
+            case "liquefy":
+                return LIQUEFY;
+            case "solidify":
+                return SOLIDIFY;
+            case "of":
+                return OF;
+            case "pour":
+                return POUR;
+            case "contents":
+                return CONTENTS;
+            case "clean":
+                return CLEAN;
+            case "for":
+                return FOR;
+            case "in":
+                return IN;
+            case "end":
+                return END;
+            case "ingredients":
+                return INGREDIENTS;
+            case "method":
+                return METHOD;
+            case "equipment":
+                return EQUIPMENT;
+            case "baking":
+                return BAKING;
+            case "dish":
+                return DISH;
+            case "serves":
+                return SERVES;
+            case "ml":
+                return ML;
+            case "g":
+                return G;
+            case ".":
+                return EOL;
+            default:
+                return null;
+        }
     }
 }

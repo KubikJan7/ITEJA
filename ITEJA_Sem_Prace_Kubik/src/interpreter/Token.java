@@ -25,5 +25,9 @@ public class Token<V> {
         this.tokenValue = tokenValue;
     }
 
+    @Override
+    public String toString() {
+        return "" +tokenValue + " " + tokenType;
+    }
     
 }
