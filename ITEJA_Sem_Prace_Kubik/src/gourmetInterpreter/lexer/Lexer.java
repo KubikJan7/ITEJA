@@ -11,7 +11,7 @@ public class Lexer {
         stack = new Stack();
     }
 
-    public void createListOfTokens(String code) {
+    public Stack<Token> findTokens(String code) {
         code = code.toLowerCase();
         String[] words = code.split("(?=[.])|\\s+"); // will seperate dots to new words and erase all white spaces
         String word;
@@ -41,6 +41,7 @@ public class Lexer {
             }
 
         }
+        return stack;
     }
 
     private String getStringBeforeNextDot(String[] strArray) {
@@ -49,10 +50,6 @@ public class Lexer {
             str += strArray[index++] + " ";
         }
         return str.substring(0, 1).toUpperCase() + str.substring(1);
-    }
-
-    public Stack<Token> getStack() {
-        return stack;
     }
 
     private boolean isNumeric(String string) {

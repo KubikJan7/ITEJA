@@ -3,6 +3,7 @@ package gourmetInterpreter;
 import gourmetInterpreter.lexer.FileReader;
 import gourmetInterpreter.lexer.Lexer;
 import gourmetInterpreter.lexer.Token;
+import gourmetInterpreter.parser.Parser;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -12,11 +13,10 @@ public class Main {
         FileReader fileReader = new FileReader("./gourmet_sample_0.txt");
         String code = fileReader.loadRecipe();
         //System.out.print(code);
-        Lexer lex = new Lexer();
-        lex.createListOfTokens(code);
-        for (Token tok : lex.getStack()) {
-            System.out.println(tok);
-        }
+        Lexer lexer = new Lexer();
+        Parser parser = new Parser(lexer.findTokens(code));
+        parser.parse();
+        
     }
 
 }
