@@ -32,8 +32,10 @@ public enum TokenTypeEnum {
     COMMENT("comment"), //comment after the title
     INTEGER("int"),
     CHAR("char"),
-    VARIABLE("variable"); //names of ingredients and bowls
+    VARIABLE("variable"), //names of ingredients and bowls
 
+    NONE("");
+    
     private final String jmeno;
 
     private TokenTypeEnum(String name) {
