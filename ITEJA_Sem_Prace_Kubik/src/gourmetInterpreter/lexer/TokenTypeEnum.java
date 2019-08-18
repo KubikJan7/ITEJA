@@ -34,8 +34,10 @@ public enum TokenTypeEnum {
     CHAR("char"),
     VARIABLE("variable"), //names of ingredients and bowls
 
-    NONE("");
+    NONE(""),
     
+    ASSIGNMENT(""),
+    OPERATION("");
     private final String jmeno;
 
     private TokenTypeEnum(String name) {

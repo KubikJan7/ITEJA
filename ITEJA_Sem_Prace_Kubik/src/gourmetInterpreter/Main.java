@@ -28,6 +28,10 @@ public class Main {
                 System.out.println(itr.next());
             }
         }
+//    Stack<Token> stack = lexer.findTokens(code);
+//        for (Token t : stack) {
+//            System.out.println(t);
+//        }
         
         
 //        AbstrTree<String> tree = new AbstrTree<>();
