@@ -5,37 +5,42 @@ import gourmetInterpreter.lexer.Token;
 import java.util.Iterator;
 
 public class ParseTree {
+
     AbstrTree<Token> tree = new AbstrTree<>();
-    
-    public boolean isEmpty(){
+
+    public void clear() {
+        tree.clear();
+    }
+
+    public boolean isEmpty() {
         return tree.isEmpty();
     }
-    
-    public int getTokenCount(){
+
+    public int getTokenCount() {
         return tree.getNodeCount();
     }
-    
-    public void insertRoot(Token root){
+
+    public void insertRoot(Token root) {
         tree.insertRoot(root);
     }
-    
-    public void insertLeaf(Token leaf){
+
+    public void insertLeaf(Token leaf) {
         tree.insertLeaf(leaf);
     }
-    
-    public Token setRootAsCurrentToken(){
+
+    public Token setRootAsCurrentToken() {
         return tree.setRootAsCurrentRoot();
     }
-    
-    public Token setChildAsCurrentToken(int index){
+
+    public Token setChildAsCurrentToken(int index) {
         return tree.setChildAsCurrentNode(index);
     }
-    
-    public Token setParentAsCurrentToken(){
+
+    public Token setParentAsCurrentToken() {
         return tree.setParentAsCurrentNode();
     }
-    
-    public Iterator<Token> iterator(){
+
+    public Iterator<Token> iterator() {
         return tree.iterator();
     }
 }

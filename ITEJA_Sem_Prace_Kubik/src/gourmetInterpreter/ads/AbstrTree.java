@@ -11,7 +11,7 @@ public class AbstrTree<E> {
     private Node root;
     private Node current;
 
-    public void zrus() {
+    public void clear() {
         root = null;
         current = null;
         nodeCount = 0;
@@ -51,7 +51,7 @@ public class AbstrTree<E> {
                     + "if it contains children.");
         }
         Node u = root;
-        zrus();
+        clear();
         return u.data;
     }
 

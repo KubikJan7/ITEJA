@@ -8,8 +8,10 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import gourmetInterpreter.ads.AbstrTree;
 import gourmetInterpreter.lexer.TokenTypeEnum;
+import gourmetInterpreter.parser.ParseTree;
 import gourmetInterpreter.parser.ParserException;
 import java.util.Iterator;
+import java.util.Stack;
 
 public class Main {
 
@@ -19,8 +21,13 @@ public class Main {
         //System.out.print(code);
         Lexer lexer = new Lexer();
         Parser parser = new Parser(lexer.findTokens(code));
-        parser.parse();
-        
+        Stack<ParseTree> stack = parser.parse();
+        for (ParseTree p : stack) {
+            Iterator itr = p.iterator();
+            while(itr.hasNext()){
+                System.out.println(itr.next());
+            }
+        }
         
         
 //        AbstrTree<String> tree = new AbstrTree<>();

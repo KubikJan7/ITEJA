@@ -16,13 +16,19 @@ public class Parser {
         this.tokenStack = (Stack<Token>) stack.clone();
         tokenStackItr = tokenStack.iterator();
         parseTree = new ParseTree();
+        expressionStack = new Stack<>();
     }
 
     private Token nextT;
+
     public Stack<ParseTree> parse() throws ParserException {
         while (tokenStackItr.hasNext()) {
             //System.out.println(itr.next());
-            nextT = tokenStackItr.next();
+            if (nextT != null) {
+                if (nextT.getTokenType().equals(TokenTypeEnum.EOL)) {
+                    break;
+                }
+            }
             expressionStack.push(nextExpression());
         }
         //lookahead = this.stack.get(0);
@@ -30,10 +36,19 @@ public class Parser {
     }
 
     private ParseTree nextExpression() throws ParserException {
-        if (nextT.getTokenType() == TokenTypeEnum.EOL) {
+
+        nextT = tokenStackItr.next();
+        TokenTypeEnum type = nextT.getTokenType();
+        if (type == TokenTypeEnum.EOL) { //end of expression
             return parseTree;
         }
-        nextT = tokenStackItr.next();
-        throw new ParserException("Unexpected token: ");
+        parseTree.clear();
+
+        if (type.equals(TokenTypeEnum.TITLE) || type.equals(TokenTypeEnum.COMMENT)) {
+            parseTree.insertRoot(nextT);
+            return nextExpression();
+        } else {
+            throw new ParserException("Unexpected token: ", nextT.getTokenType());
+        }
     }
 }
