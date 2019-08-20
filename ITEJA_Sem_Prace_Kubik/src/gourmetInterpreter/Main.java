@@ -27,6 +27,7 @@ public class Main {
             while(itr.hasNext()){
                 System.out.println(itr.next());
             }
+            System.out.println("------------------------------");
         }
 //    Stack<Token> stack = lexer.findTokens(code);
 //        for (Token t : stack) {

@@ -10,8 +10,9 @@ public enum TokenTypeEnum {
     LIQUEFY("liquefy"), //change the type of the variable to liquid (integer)
     SOLIDIFY("solidify"), //change the type of the variable to dry substance (character)
     OF("of"),// used to identify the bowl (stack)
-    POUR("pour"), // copy the elements from the bowl to the dish, preserving their order and putting them on top of the elements which have already been in the dish.
+    POUR("pour"), // copy the elements from the bowl to the dish, preserving their order and putting them on top of the elements which have already been in the dish
     CONTENTS("contents"),
+    COMBINE("combine"), //will sum all the ingredient of the specified bowl
     CLEAN("clean"), // delete all elements of the bowl
     FOR("for"), // for cycle
     IN("in"), // used to identify the bowl (stack)
@@ -35,7 +36,6 @@ public enum TokenTypeEnum {
     VARIABLE("variable"), //names of ingredients and bowls
 
     NONE(""),
-    
     ASSIGNMENT(""),
     OPERATION("");
     private final String jmeno;
@@ -54,21 +54,17 @@ public enum TokenTypeEnum {
     }
 
     public static boolean isKeyword(String string) {
-        if (string.equals(PUT.toString()) || string.equals(INTO.toString())
+        return string.equals(PUT.toString()) || string.equals(INTO.toString())
                 || string.equals(REMOVE.toString()) || string.equals(FROM.toString())
                 || string.equals(LIQUEFY.toString()) || string.equals(SOLIDIFY.toString())
                 || string.equals(OF.toString()) || string.equals(POUR.toString())
-                || string.equals(CONTENTS.toString()) || string.equals(CLEAN.toString())
+                || string.equals(CONTENTS.toString()) || string.equals(COMBINE.toString()) || string.equals(CLEAN.toString())
                 || string.equals(FOR.toString()) || string.equals(IN.toString())
                 || string.equals(END.toString()) || string.equals(INGREDIENTS.toString())
                 || string.equals(METHOD.toString()) || string.equals(EQUIPMENT.toString()) || string.equals(BAKING.toString())
                 || string.equals(DISH.toString()) || string.equals(SERVES.toString())
                 || string.equals(ML.toString()) || string.equals(G.toString())
-                || string.equals(EOL.toString())) {
-            return true;
-        } else {
-            return false;
-        }
+                || string.equals(EOL.toString());
     }
 
     public static TokenTypeEnum getKeyword(String string) {
@@ -91,6 +87,8 @@ public enum TokenTypeEnum {
                 return POUR;
             case "contents":
                 return CONTENTS;
+            case "combine":
+                return COMBINE;
             case "clean":
                 return CLEAN;
             case "for":
