@@ -1,5 +1,6 @@
 package gourmetInterpreter.parser;
 
+import com.sun.org.apache.bcel.internal.generic.PUTFIELD;
 import gourmetInterpreter.lexer.Token;
 import gourmetInterpreter.lexer.TokenTypeEnum;
 import java.util.Iterator;
@@ -87,79 +88,111 @@ public class Parser {
                 return null;
             case METHOD:
                 insertBlockNameExpression();
-                for (int i = 0; i < countMethodLines(); i++) {
+                int forExprCount = 0;
+                for (int i = 0; i < countMethodLines() - forExprCount; i++) {
                     tokenStackItr.next(); // skip the dot
                     nextT = tokenStackItr.next();
                     type = nextT.getTokenType();
+                    parseTree = new ParseTree();
+                    parseTree.insertRoot(nextT);
+                    parseTree.setRootAsCurrentToken();
+                    expressionStack.push(parseTree);
                     switch (type) {
                         case PUT:
-                            tokenStackItr.next();
-                            tokenStackItr.next();
-                            tokenStackItr.next();
-                            tokenStackItr.next();
+                            putIngredientIntoBowl();
                             break;
                         case FOR:
-                            tokenStackItr.next();
-                            tokenStackItr.next();
-                            tokenStackItr.next();
-                            tokenStackItr.next();
-                            tokenStackItr.next();
-                            tokenStackItr.next();
-                            tokenStackItr.next();
-                            tokenStackItr.next();
-                            tokenStackItr.next();
-                            tokenStackItr.next();
-                            tokenStackItr.next();
-                            tokenStackItr.next();
-                            tokenStackItr.next();
-                            tokenStackItr.next();
-                            tokenStackItr.next();
-                            tokenStackItr.next();
-                            tokenStackItr.next();
-                            tokenStackItr.next();
-                            tokenStackItr.next();
+                            Token var = tokenStackItr.next(); // variable
+                            tokenStackItr.next(); //each
+                            Token in = tokenStackItr.next(); //in
+                            tokenStackItr.next();//the
+                            Token bowl = tokenStackItr.next(); // bowl
+                            parseTree.insertLeaf(in);
+                            parseTree.setChildAsCurrentToken(0);
+                            parseTree.insertLeaf(var);
+                            parseTree.insertLeaf(bowl);
+                            parseTree.setRootAsCurrentToken();
+                            parseTree.insertLeaf(new Token(TokenTypeEnum.BODY, ""));
+                            parseTree.setChildAsCurrentToken(1);
+                            tokenStackItr.next(); //dot
+                            nextT = tokenStackItr.next();
+                            type = nextT.getTokenType();
+                            while (!type.equals(TokenTypeEnum.FOR)) {
+                                parseTree.insertLeaf(nextT);
+                                parseTree.setChildAsCurrentToken(forExprCount);
+                                forExprCount++;
+                                switch (type) {
+                                    case PUT:
+                                        putIngredientIntoBowl();
+                                        break;
+                                    case REMOVE:
+                                        removeIngredientFromBowl();
+                                        break;
+                                    default:
+                                        unexpectedTokenException();
+                                }
+                                parseTree.setParentAsCurrentToken(); //set BODY as current node
+                                tokenStackItr.next(); //dot                                
+                                nextT = tokenStackItr.next();
+                                type = nextT.getTokenType();
+                            }
+                            tokenStackItr.next(); //each
+                            tokenStackItr.next(); //ingredient
+                            tokenStackItr.next(); //end
+                            forExprCount++;
                             break;
                         case REMOVE:
-                            tokenStackItr.next();
-                            tokenStackItr.next();
-                            tokenStackItr.next();
+                            removeIngredientFromBowl();
                             break;
                         case LIQUEFY:
+                            tokenStackItr.next(); //contents
+                            tokenStackItr.next(); //of
+                            tokenStackItr.next(); //the
+                            nextT = tokenStackItr.next(); //bowl
+                            parseTree.insertLeaf(nextT);
                             break;
                         case SOLIDIFY:
+                            tokenStackItr.next(); //contents
+                            tokenStackItr.next(); //of
+                            tokenStackItr.next(); //the
+                            nextT = tokenStackItr.next(); //bowl
+                            parseTree.insertLeaf(nextT);
                             break;
                         case POUR:
-                            tokenStackItr.next();
-                            tokenStackItr.next();
-                            tokenStackItr.next();
-                            tokenStackItr.next();
-                            tokenStackItr.next();
-                            tokenStackItr.next();
-                            tokenStackItr.next();
-                            tokenStackItr.next();
+                            tokenStackItr.next(); //contents
+                            tokenStackItr.next(); //of
+                            tokenStackItr.next(); //the
+                            nextT = tokenStackItr.next(); //bowl
+                            parseTree.insertLeaf(nextT);
+                            tokenStackItr.next(); //into
+                            tokenStackItr.next(); //the
+                            tokenStackItr.next(); //baking
+                            nextT = tokenStackItr.next(); //dish
+                            parseTree.insertLeaf(nextT);
                             break;
                         default:
-                            break;
+                            unexpectedTokenException();
                     }
                 }
+                tokenStackItr.next(); // skip the dot
                 return null;
             case SERVES:
                 parseTree.insertRoot(nextT);
                 parseTree.setRootAsCurrentToken();
                 nextT = tokenStackItr.next();
                 if (!nextT.getTokenType().equals(TokenTypeEnum.INTEGER)) {
-                    defaultAction();
+                    unexpectedTokenException();
                 }
                 parseTree.insertLeaf(nextT);
                 endOfProgram = true;
                 return nextExpression();
             default:
-                defaultAction();
+                unexpectedTokenException();
         }
         return null;
     }
 
-    private void defaultAction() throws ParserException {
+    private void unexpectedTokenException() throws ParserException {
         throw new ParserException("Unexpected token: ", nextT.getTokenType());
     }
 
@@ -219,5 +252,23 @@ public class Parser {
     private void insertBlockNameExpression() {
         parseTree.insertRoot(nextT);
         expressionStack.push(parseTree);
+    }
+
+    private void removeIngredientFromBowl() {
+        nextT = tokenStackItr.next(); //ingredient
+        parseTree.insertLeaf(nextT);
+        tokenStackItr.next(); //from
+        tokenStackItr.next(); //the
+        nextT = tokenStackItr.next(); //bowl
+        parseTree.insertLeaf(nextT);
+    }
+
+    private void putIngredientIntoBowl() {
+        nextT = tokenStackItr.next(); //ingredient
+        parseTree.insertLeaf(nextT);
+        tokenStackItr.next(); //into
+        tokenStackItr.next(); //the
+        nextT = tokenStackItr.next(); //bowl
+        parseTree.insertLeaf(nextT);
     }
 }

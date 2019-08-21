@@ -15,8 +15,10 @@ public enum TokenTypeEnum {
     COMBINE("combine"), //will sum all the ingredient of the specified bowl
     CLEAN("clean"), // delete all elements of the bowl
     FOR("for"), // for cycle
+    EACH("each"),
     IN("in"), // used to identify the bowl (stack)
     END("end"), // end of for cyclus
+    THE("the"),
     INGREDIENTS("ingredients"), // name of the block where all ingredients (variables) will be declared and initialized
     EQUIPMENT("equipment"), //name of the block where all bowls (stacks) will be declared
     METHOD("method"), // name of the block where the main logic of the program will be contained
@@ -37,7 +39,8 @@ public enum TokenTypeEnum {
 
     NONE(""),
     ASSIGNMENT(""),
-    OPERATION("");
+    OPERATION(""),
+    BODY("");
     private final String jmeno;
 
     private TokenTypeEnum(String name) {
@@ -58,10 +61,12 @@ public enum TokenTypeEnum {
                 || string.equals(REMOVE.toString()) || string.equals(FROM.toString())
                 || string.equals(LIQUEFY.toString()) || string.equals(SOLIDIFY.toString())
                 || string.equals(OF.toString()) || string.equals(POUR.toString())
-                || string.equals(CONTENTS.toString()) || string.equals(COMBINE.toString()) || string.equals(CLEAN.toString())
-                || string.equals(FOR.toString()) || string.equals(IN.toString())
-                || string.equals(END.toString()) || string.equals(INGREDIENTS.toString())
-                || string.equals(METHOD.toString()) || string.equals(EQUIPMENT.toString()) || string.equals(BAKING.toString())
+                || string.equals(CONTENTS.toString()) || string.equals(COMBINE.toString())
+                || string.equals(CLEAN.toString()) || string.equals(FOR.toString())
+                || string.equals(EACH.toString()) || string.equals(IN.toString())
+                || string.equals(END.toString()) || string.equals(THE.toString())
+                || string.equals(INGREDIENTS.toString()) || string.equals(METHOD.toString())
+                || string.equals(EQUIPMENT.toString()) || string.equals(BAKING.toString())
                 || string.equals(DISH.toString()) || string.equals(SERVES.toString())
                 || string.equals(ML.toString()) || string.equals(G.toString())
                 || string.equals(EOL.toString());
@@ -93,10 +98,14 @@ public enum TokenTypeEnum {
                 return CLEAN;
             case "for":
                 return FOR;
+            case "each":
+                return EACH;
             case "in":
                 return IN;
             case "end":
                 return END;
+            case "the":
+                return THE;
             case "ingredients":
                 return INGREDIENTS;
             case "method":
