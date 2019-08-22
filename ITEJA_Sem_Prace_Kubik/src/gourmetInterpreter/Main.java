@@ -8,6 +8,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import gourmetInterpreter.ads.AbstrTree;
 import gourmetInterpreter.lexer.TokenTypeEnum;
+import gourmetInterpreter.parser.Evaluator;
 import gourmetInterpreter.parser.ParseTree;
 import gourmetInterpreter.parser.ParserException;
 import java.util.Iterator;
@@ -21,14 +22,21 @@ public class Main {
         //System.out.print(code);
         Lexer lexer = new Lexer();
         Parser parser = new Parser(lexer.findTokens(code));
-        Stack<ParseTree> stack = parser.parse();
-        for (ParseTree p : stack) {
-            Iterator itr = p.iterator();
-            while(itr.hasNext()){
-                System.out.println(itr.next());
-            }
-            System.out.println("------------------------------");
-        }
+        Evaluator evaluator = new Evaluator(parser.parse());
+        evaluator.evaluate();
+        System.out.println(evaluator.getRecipeTitle());        
+        System.out.println(evaluator.getRecipeDesc());
+        System.out.println(evaluator.ingredients.get("salt"));
+
+//        Stack<ParseTree> stack = parser.parse();
+//        for (ParseTree p : stack) {
+//            Iterator itr = p.iterator();
+//            while(itr.hasNext()){
+//                System.out.println(itr.next());
+//            }
+//            System.out.println("------------------------------");
+//        }
+        
 //    Stack<Token> stack = lexer.findTokens(code);
 //        for (Token t : stack) {
 //            System.out.println(t);

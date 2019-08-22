@@ -43,4 +43,8 @@ public class ParseTree {
     public Iterator<Token> iterator() {
         return tree.iterator();
     }
+
+    public Token getRootData() {
+        return tree.getRootNodeData();
+    }
 }

@@ -134,6 +134,10 @@ public class AbstrTree<E> {
         };
     }
 
+    public E getRootNodeData() {
+        return root.data;
+    }
+
     public class Node {
 
         E data;
