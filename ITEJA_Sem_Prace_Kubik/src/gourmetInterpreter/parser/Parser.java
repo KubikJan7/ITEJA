@@ -1,12 +1,9 @@
 package gourmetInterpreter.parser;
 
-import com.sun.org.apache.bcel.internal.generic.PUTFIELD;
 import gourmetInterpreter.lexer.Token;
 import gourmetInterpreter.lexer.TokenTypeEnum;
 import java.util.Iterator;
 import java.util.Stack;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class Parser {
 
@@ -22,15 +19,11 @@ public class Parser {
     }
 
     private Token nextT;
-    private boolean endOfProgram;
 
     public Stack<ParseTree> parse() throws ParserException {
         ParseTree expression;
         while (tokenStackItr.hasNext()) {
             //System.out.println(itr.next());
-            if (endOfProgram) {
-                throw new ParserException("The program must be ended with SERVES expression!");
-            }
 //            if (nextT != null) {
 //                if (nextT.getTokenType().equals(TokenTypeEnum.EOL)) {
 //                    break;
@@ -44,11 +37,17 @@ public class Parser {
         return expressionStack;
     }
 
+    private boolean endOfLineExpected;
+
     private ParseTree nextExpression() throws ParserException {
         nextT = tokenStackItr.next();
         TokenTypeEnum type = nextT.getTokenType();
         if (type == TokenTypeEnum.EOL) { //end of expression
+            endOfLineExpected = false;
             return parseTree;
+        } else if (type != TokenTypeEnum.EOL && endOfLineExpected) {
+            System.out.println((nextT));
+            throw new ParserException("End of line expected, instead: ", type);
         }
         parseTree = new ParseTree();
 
@@ -56,10 +55,11 @@ public class Parser {
             case TITLE:
             case COMMENT:
                 parseTree.insertRoot(nextT);
+                endOfLineExpected = true;
                 return nextExpression();
             case INGREDIENTS:
                 insertBlockNameExpression();
-                tokenStackItr.next(); // skip the dot
+                skipDot();
                 Token value;
                 Token variable;
                 for (int i = 0; i < countIngredients(); i++) {
@@ -78,7 +78,7 @@ public class Parser {
                 return null;
             case EQUIPMENT:
                 insertBlockNameExpression();
-                tokenStackItr.next(); // skip the dot
+                skipDot();
                 for (int i = 0; i < countEquipments(); i++) {
                     nextT = tokenStackItr.next();
                     parseTree = new ParseTree();
@@ -90,7 +90,7 @@ public class Parser {
                 insertBlockNameExpression();
                 int forExprCount = 0;
                 for (int i = 0; i < countMethodLines() - forExprCount; i++) {
-                    tokenStackItr.next(); // skip the dot
+                    skipDot();
                     nextT = tokenStackItr.next();
                     type = nextT.getTokenType();
                     parseTree = new ParseTree();
@@ -174,7 +174,7 @@ public class Parser {
                             unexpectedTokenException();
                     }
                 }
-                tokenStackItr.next(); // skip the dot
+                skipDot();
                 return null;
             case SERVES:
                 parseTree.insertRoot(nextT);
@@ -184,7 +184,6 @@ public class Parser {
                     unexpectedTokenException();
                 }
                 parseTree.insertLeaf(nextT);
-                endOfProgram = true;
                 return nextExpression();
             default:
                 unexpectedTokenException();
@@ -270,5 +269,12 @@ public class Parser {
         tokenStackItr.next(); //the
         nextT = tokenStackItr.next(); //bowl
         parseTree.insertLeaf(nextT);
+    }
+
+    private void skipDot() throws ParserException {
+        Token t = tokenStackItr.next(); // skip the dot
+        if (t.getTokenType() != TokenTypeEnum.EOL) {
+            throw new ParserException("End of line expected instead of: ", t.getTokenType());
+        }
     }
 }
