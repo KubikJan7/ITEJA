@@ -37,17 +37,11 @@ public class Parser {
         return expressionStack;
     }
 
-    private boolean endOfLineExpected;
-
     private ParseTree nextExpression() throws ParserException {
         nextT = tokenStackItr.next();
         TokenTypeEnum type = nextT.getTokenType();
         if (type == TokenTypeEnum.EOL) { //end of expression
-            endOfLineExpected = false;
             return parseTree;
-        } else if (type != TokenTypeEnum.EOL && endOfLineExpected) {
-            System.out.println((nextT));
-            throw new ParserException("End of line expected, instead: ", type);
         }
         parseTree = new ParseTree();
 
@@ -55,7 +49,6 @@ public class Parser {
             case TITLE:
             case COMMENT:
                 parseTree.insertRoot(nextT);
-                endOfLineExpected = true;
                 return nextExpression();
             case INGREDIENTS:
                 insertBlockNameExpression();
