@@ -39,6 +39,7 @@ public enum TokenTypeEnum {
 
     NONE(""),
     ASSIGNMENT(""),
+    DECLARATION(""),
     OPERATION(""),
     BODY("");
     private final String jmeno;

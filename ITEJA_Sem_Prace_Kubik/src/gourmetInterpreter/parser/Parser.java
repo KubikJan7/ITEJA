@@ -75,7 +75,9 @@ public class Parser {
                 for (int i = 0; i < countEquipments(); i++) {
                     nextT = tokenStackItr.next();
                     parseTree = new ParseTree();
-                    parseTree.insertRoot(nextT);
+                    parseTree.insertRoot(new Token<>(TokenTypeEnum.DECLARATION,""));
+                    parseTree.setRootAsCurrentToken();
+                    parseTree.insertLeaf(nextT);
                     expressionStack.push(parseTree);
                 }
                 return null;

@@ -10,7 +10,7 @@ public class Evaluator {
 
     private Stack<ParseTree> expressionStack;
     public HashMap<String, Object> ingredients;
-    private HashMap<String, Stack> bowls;
+    public HashMap<String, Stack<String>> bowls;
 
     private String recipeTitle;
     private String recipeDesc;
@@ -21,7 +21,7 @@ public class Evaluator {
         this.bowls = new HashMap<>();
     }
 
-    public void evaluate() {
+    public void evaluate() throws ParserException {
         for (ParseTree parseTree : expressionStack) {
             Iterator<Token> itr = parseTree.iterator();
             while (itr.hasNext()) {
@@ -39,9 +39,24 @@ public class Evaluator {
                         Token token = itr.next();
                         int value = Integer.parseInt(token.getTokenValue().toString());
                         TokenTypeEnum valueType = token.getTokenType();
-                        ingredients.put(key, (valueType.equals(TokenTypeEnum.INTEGER)) ? value : String.valueOf((char)value)); //ml will be saved as integer, g as string converted from char
+                        ingredients.put(key, (valueType.equals(TokenTypeEnum.INTEGER)) ? value : String.valueOf((char) value)); //ml will be saved as integer, g as string converted from char
                         break;
-
+                    case DECLARATION:
+                        bowls.put(itr.next().getTokenValue().toString(), new Stack());
+                        break;
+                    case PUT:
+                        if(parseTree.getRootData().getTokenType().equals(TokenTypeEnum.FOR)){
+                            break;
+                        }
+                        Token ingredient = itr.next();
+                        Token bowl = itr.next();
+                        Stack s = bowls.get(bowl.getTokenValue().toString());
+                        if (s!=null) {
+                            s.push(ingredient.getTokenValue());
+                        } else {
+                            throw new ParserException("Ingredient " + ingredient.getTokenValue() + "cannot be added to bowl which is not declared!");
+                        }
+                        break;
                 }
             }
         }

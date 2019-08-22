@@ -26,7 +26,8 @@ public class Main {
         evaluator.evaluate();
         System.out.println(evaluator.getRecipeTitle());        
         System.out.println(evaluator.getRecipeDesc());
-        System.out.println(evaluator.ingredients.get("salt"));
+        Stack stack = evaluator.bowls.get("2nd_bowl");
+        System.out.println((int)evaluator.ingredients.get(stack.get(0).toString()).toString().charAt(0));
 
 //        Stack<ParseTree> stack = parser.parse();
 //        for (ParseTree p : stack) {
