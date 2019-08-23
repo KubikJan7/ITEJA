@@ -25,6 +25,7 @@ Put white_sugar into the 1st_bowl.
 Put eggs into the 2nd_bowl.
 Put butter into the 2nd_bowl.
 Put milk into the 2nd_bowl.
+Solidify contents of the 2nd_bowl.
 
 For each ingredient in the 2nd_bowl.
 Put ingredient into the 1st_bowl.

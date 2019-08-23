@@ -50,9 +50,9 @@ public class Evaluator {
                         }
                         Token ingredient = itr.next();
                         Token bowl = itr.next();
-                        Stack s = bowls.get(bowl.getTokenValue().toString());
-                        if (s != null) {
-                            s.push(ingredient.getTokenValue());
+                        Stack<String> stack = bowls.get(bowl.getTokenValue().toString());
+                        if (stack != null) {
+                            stack.push(ingredient.getTokenValue().toString());
                         } else {
                             throw new ParserException("Ingredient " + ingredient.getTokenValue() + " cannot be added to bowl which is not declared!");
                         }
@@ -63,9 +63,9 @@ public class Evaluator {
                         }
                         ingredient = itr.next();
                         bowl = itr.next();
-                        s = bowls.get(bowl.getTokenValue().toString());
-                        if (s != null) {
-                            System.out.println(s.remove(ingredient.getTokenValue()));
+                        stack = bowls.get(bowl.getTokenValue().toString());
+                        if (stack != null) {
+                            System.out.println(stack.remove(ingredient.getTokenValue().toString()));
                         } else {
                             throw new ParserException("Ingredient " + ingredient.getTokenValue() + " cannot be removed from bowl which is not declared!");
                         }
@@ -73,8 +73,56 @@ public class Evaluator {
                     case FOR:
                         break;
                     case LIQUEFY:
+                        bowl = itr.next();
+                        stack = bowls.get(bowl.getTokenValue().toString());
+                        if (stack != null) {
+                            for (String str : stack) {
+                                Object obj = ingredients.get(str);
+                                if (obj instanceof String) {
+                                    ingredients.put(str, (int) obj.toString().charAt(0));
+                                } else {
+                                    ingredients.put(str, obj);
+                                }
+                            }
+                        } else {
+                            throw new ParserException("Ingredients of the " + bowl.getTokenValue() + " cannot be liquefy because this bowl is not declared!");
+                        }
                         break;
                     case SOLIDIFY:
+                        bowl = itr.next();
+                        stack = bowls.get(bowl.getTokenValue().toString());
+                        if (stack != null) {
+                            for (String str : stack) {
+                                Object obj = ingredients.get(str);
+                                System.out.println(obj instanceof Integer);
+                                if (obj instanceof Integer) {
+                                    ingredients.put(str, String.valueOf((char)Integer.parseInt(obj.toString())));
+                                } else {
+                                    ingredients.put(str, obj);
+                                }
+                            }
+                        } else {
+                            throw new ParserException("Ingredients of the " + bowl.getTokenValue() + " cannot be solidify because this bowl is not declared!");
+                        }
+                        break;
+                    case COMBINE:
+                        bowl = itr.next();
+                        stack = bowls.get(bowl.getTokenValue().toString());
+                        int sum = 0;
+                        if (stack != null) {
+                            for (String str : stack) {
+                                try {
+                                    sum += (int) ingredients.get(str);
+                                } catch (ClassCastException e) {
+                                    throw new ParserException("All ingredients must be transfered to liquid state first in order to execute COMBINE operation!");
+                                }
+                            }
+                            stack.clear();
+                            stack.push("sum");
+                            ingredients.put("sum", sum);
+                        } else {
+                            throw new ParserException("Ingredients of the " + bowl.getTokenValue() + " cannot be combined because this bowl is not declared!");
+                        }
                         break;
                     case POUR:
                         break;

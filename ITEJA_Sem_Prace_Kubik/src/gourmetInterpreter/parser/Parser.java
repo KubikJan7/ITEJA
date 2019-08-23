@@ -75,7 +75,7 @@ public class Parser {
                 for (int i = 0; i < countEquipments(); i++) {
                     nextT = tokenStackItr.next();
                     parseTree = new ParseTree();
-                    parseTree.insertRoot(new Token<>(TokenTypeEnum.DECLARATION,""));
+                    parseTree.insertRoot(new Token<>(TokenTypeEnum.DECLARATION, ""));
                     parseTree.setRootAsCurrentToken();
                     parseTree.insertLeaf(nextT);
                     expressionStack.push(parseTree);
@@ -147,6 +147,13 @@ public class Parser {
                             parseTree.insertLeaf(nextT);
                             break;
                         case SOLIDIFY:
+                            tokenStackItr.next(); //contents
+                            tokenStackItr.next(); //of
+                            tokenStackItr.next(); //the
+                            nextT = tokenStackItr.next(); //bowl
+                            parseTree.insertLeaf(nextT);
+                            break;
+                        case COMBINE:
                             tokenStackItr.next(); //contents
                             tokenStackItr.next(); //of
                             tokenStackItr.next(); //the
