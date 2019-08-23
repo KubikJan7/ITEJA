@@ -45,17 +45,38 @@ public class Evaluator {
                         bowls.put(itr.next().getTokenValue().toString(), new Stack());
                         break;
                     case PUT:
-                        if(parseTree.getRootData().getTokenType().equals(TokenTypeEnum.FOR)){
+                        if (parseTree.getRootData().getTokenType().equals(TokenTypeEnum.FOR)) {
                             break;
                         }
                         Token ingredient = itr.next();
                         Token bowl = itr.next();
                         Stack s = bowls.get(bowl.getTokenValue().toString());
-                        if (s!=null) {
+                        if (s != null) {
                             s.push(ingredient.getTokenValue());
                         } else {
-                            throw new ParserException("Ingredient " + ingredient.getTokenValue() + "cannot be added to bowl which is not declared!");
+                            throw new ParserException("Ingredient " + ingredient.getTokenValue() + " cannot be added to bowl which is not declared!");
                         }
+                        break;
+                    case REMOVE:
+                        if (parseTree.getRootData().getTokenType().equals(TokenTypeEnum.FOR)) {
+                            break;
+                        }
+                        ingredient = itr.next();
+                        bowl = itr.next();
+                        s = bowls.get(bowl.getTokenValue().toString());
+                        if (s != null) {
+                            System.out.println(s.remove(ingredient.getTokenValue()));
+                        } else {
+                            throw new ParserException("Ingredient " + ingredient.getTokenValue() + " cannot be removed from bowl which is not declared!");
+                        }
+                        break;
+                    case FOR:
+                        break;
+                    case LIQUEFY:
+                        break;
+                    case SOLIDIFY:
+                        break;
+                    case POUR:
                         break;
                 }
             }

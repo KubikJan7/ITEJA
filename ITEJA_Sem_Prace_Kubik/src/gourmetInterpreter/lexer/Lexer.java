@@ -30,10 +30,10 @@ public class Lexer {
                 if (word.contains(".")) {
                     throw new NumberFormatException("Double data types are not allowed in Gourmet");
                 } else {
-                    if (words[i + 1].equals(TokenTypeEnum.ML.toString())||words[i-1].equals(TokenTypeEnum.SERVES.toString())) {
-                        stack.push(new Token(TokenTypeEnum.INTEGER, word));
-                    } else {
+                    if (words[i + 1].equals(TokenTypeEnum.G.toString())) {
                         stack.push(new Token(TokenTypeEnum.CHAR, word));
+                    } else {
+                        stack.push(new Token(TokenTypeEnum.INTEGER, word));
                     }
                 }
             } else {

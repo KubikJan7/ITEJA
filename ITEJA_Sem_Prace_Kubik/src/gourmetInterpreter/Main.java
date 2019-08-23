@@ -24,10 +24,12 @@ public class Main {
         Parser parser = new Parser(lexer.findTokens(code));
         Evaluator evaluator = new Evaluator(parser.parse());
         evaluator.evaluate();
-        System.out.println(evaluator.getRecipeTitle());        
+        System.out.println(evaluator.getRecipeTitle());
         System.out.println(evaluator.getRecipeDesc());
         Stack stack = evaluator.bowls.get("2nd_bowl");
-        System.out.println((int)evaluator.ingredients.get(stack.get(0).toString()).toString().charAt(0));
+        //System.out.println((int) evaluator.ingredients.get(stack.get(0).toString()).toString().charAt(0)); //char
+        System.out.println(evaluator.ingredients.get(stack.get(2).toString())); //int
+        
 
 //        Stack<ParseTree> stack = parser.parse();
 //        for (ParseTree p : stack) {
@@ -37,13 +39,10 @@ public class Main {
 //            }
 //            System.out.println("------------------------------");
 //        }
-        
 //    Stack<Token> stack = lexer.findTokens(code);
 //        for (Token t : stack) {
 //            System.out.println(t);
 //        }
-        
-        
 //        AbstrTree<String> tree = new AbstrTree<>();
 //        tree.insertRoot("c");
 //        tree.setRootAsCurrentRoot();
