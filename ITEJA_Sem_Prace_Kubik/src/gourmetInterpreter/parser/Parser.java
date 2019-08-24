@@ -97,8 +97,8 @@ public class Parser {
                             putIngredientIntoBowl();
                             break;
                         case FOR:
-                            Token var = tokenStackItr.next(); // variable
                             tokenStackItr.next(); //each
+                            Token var = tokenStackItr.next(); // variable
                             Token in = tokenStackItr.next(); //in
                             tokenStackItr.next();//the
                             Token bowl = tokenStackItr.next(); // bowl

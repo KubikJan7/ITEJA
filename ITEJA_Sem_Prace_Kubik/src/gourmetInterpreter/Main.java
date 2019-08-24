@@ -27,9 +27,12 @@ public class Main {
         System.out.println(evaluator.getRecipeTitle());
         System.out.println(evaluator.getRecipeDesc());
         Stack stack = evaluator.bowls.get("2nd_bowl");
-//        System.out.println((int) evaluator.ingredients.get(stack.get(2).toString()).toString().charAt(0)); //char
+        System.out.println((int) evaluator.ingredients.get(stack.get(2).toString()).toString().charAt(0)); //char
         System.out.println(evaluator.ingredients.get(stack.get(0).toString())); //int
-
+        for (Object object : evaluator.baking_dish) {
+            System.out.println(object);
+        }
+        
 //        Stack<ParseTree> stack = parser.parse();
 //        for (ParseTree p : stack) {
 //            Iterator itr = p.iterator();
