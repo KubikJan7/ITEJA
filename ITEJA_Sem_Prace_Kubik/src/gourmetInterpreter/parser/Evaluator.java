@@ -209,19 +209,27 @@ public class Evaluator {
                         }
                         break;
                     case SERVES:
-                        int printCount = (int)itr.next().getTokenValue();
-                        System.out.print("Output: ");
-                        for (int i = 0; i < printCount; i++) {
-                            System.out.println("");
-                            for (Object object : baking_dish) {
-                            System.out.print(object + " ");
-                        }
-                        }
+                        printCount = (int) itr.next().getTokenValue();
                         break;
                 }
                 break;
             }
         }
+    }
+
+    private int printCount;
+
+    public void printOutput() {
+        System.out.println("-------------------");
+        System.out.print("Output: ");
+        System.out.print("\n-------------------");
+        for (int i = 0; i < printCount; i++) {
+            System.out.println("");
+            for (Object object : baking_dish) {
+                System.out.print(object + " ");
+            }
+        }
+        System.out.println("\n-------------------");
     }
 
     public String getRecipeTitle() {

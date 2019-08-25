@@ -24,18 +24,19 @@ public class Main {
         Parser parser = new Parser(lexer.findTokens(code));
         Evaluator evaluator = new Evaluator(parser.parse());
         evaluator.evaluate();
+
+        System.out.println("------------");
+        System.out.println("Recipe name:");
+        System.out.print("------------\n");
         System.out.println(evaluator.getRecipeTitle());
+        System.out.print("----------------------");
+        System.out.println("\nRecipe description:");
+        System.out.print("----------------------\n");
         System.out.println(evaluator.getRecipeDesc());
+        evaluator.printOutput();
         Stack stack = evaluator.bowls.get("2nd_bowl");
 //        System.out.println((int) evaluator.ingredients.get(stack.get(2).toString()).toString().charAt(0)); //char
 //        System.out.println(evaluator.ingredients.get(stack.get(0).toString())); //int
-        for (Object object : evaluator.baking_dish) {
-            if (object instanceof String) {
-                System.out.println((int) object.toString().charAt(0));
-            } else {
-                System.out.println(object);
-            }
-        }
 
 //        Stack<ParseTree> stack = parser.parse();
 //        for (ParseTree p : stack) {

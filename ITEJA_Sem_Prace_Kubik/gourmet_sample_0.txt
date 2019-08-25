@@ -32,6 +32,7 @@ Remove ingredient from the 2nd_bowl.
 For each ingredient end.
 
 Liquefy contents of the 1st_bowl.
+Combine contents of the 1st_bowl.
 
 Pour contents of the 1st_bowl into the baking dish.
 
