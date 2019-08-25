@@ -194,7 +194,7 @@ public class Parser {
     }
 
     private void unexpectedTokenException() throws ParserException {
-        throw new ParserException("Unexpected token: ", nextT.getTokenType());
+        throw new ParserException("Unexpected token: " + "variable " + nextT.getTokenValue() + " of type " + nextT.getTokenType() + ".");
     }
 
     private int eggLine; //integer to specify line where there is no ml or g keyword 

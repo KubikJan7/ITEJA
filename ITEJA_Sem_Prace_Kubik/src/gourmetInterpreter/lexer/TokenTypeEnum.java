@@ -24,7 +24,7 @@ public enum TokenTypeEnum {
     METHOD("method"), // name of the block where the main logic of the program will be contained
     BAKING("baking"), // baking dishes are used only to print the result.
     DISH("dish"),
-    SERVES("serves"), // prints the content of the of the baking dish. The elements in each dish are printed from top of the stack to the bottom
+    SERVES("serves"), // prints the contents of the given number of baking dishes. The elements in each dish are printed from top of the stack to the bottom.
     EOL("."), //end of line
 
     ML("ml"), //mililitres => integer

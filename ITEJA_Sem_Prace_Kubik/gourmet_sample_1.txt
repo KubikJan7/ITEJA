@@ -1,73 +1,40 @@
 Hello World Recipe.
 
-These are those thick, spongy American pancakes 
-that are often eaten with warm maple syrup 
-and crisp fried bacon.
-
-Ingredients.
-300 ml milk
-30 ml butter
-2 eggs
-4 g white_sugar
-2 g salt
-10 g baking_powder
-225 g flour
-
-Equipment.
-1st_bowl
-2nd_bowl
-
-Method.
-Put flour into the 1st_bowl.
-Put baking_powder into the 1st_bowl.
-Put salt into the 1st_bowl.
-Put white_sugar into the 1st_bowl.
-Put eggs into the 2nd_bowl.
-Put butter into the 2nd_bowl.
-Put milk into the 2nd_bowl.
-
-For each ingredient in the 2nd_bowl.
-Put ingredient into the 1st_bowl.
-Remove ingredient from the 2nd_bowl.
-For each ingredient end.
-
-Liquefy contents of the 1st_bowl.
-
-Pour contents of the 1st_bowl into the baking dish.
-
-Serves 4.
-
-This recipe prints "Hello, World!" in a most delicious way.
+This recipe prints "Hello, World!".
 
 Ingredients.
 72 g hazelnuts
 101 eggs
-108 g lobsters
-111 ml orange juice
-44 g cashews
+108 ml lemon_juice
+111 ml orange_juice
+44 g cloves
 32 g sugar
 87 ml water
-114 g rice
-100 g durian
-33 passion fruit
-10 ml lemon juice
+114 ml rum
+100 g dark_chocolate
+33 g pomegranate
+
+Equipment.
+1st_bowl
 
 Method.
-Put lemon juice into the mixing bowl.
-Put passion fruit into the mixing bowl.
-Put durian into the mixing bowl.
-Put lobsters into the mixing bowl.
-Put rice into the mixing bowl.
-Put orange juice  into the mixing bowl.
-Put water into the mixing bowl.
-Put sugar into the mixing bowl.
-Put cashews into the mixing bowl.
-Put orange juice into the mixing bowl.
-Put lobsters into the mixing bowl.
-Put lobsters into the mixing bowl.
-Put eggs into the mixing bowl.
-Put hazelnuts into the mixing bowl.
-Liquify contents of the mixing bowl.
-Pour contents of the mixing bowl into the baking dish.
+Put hazelnuts into the 1st_bowl.
+Put eggs into the 1st_bowl.
+Put lemon_juice into the 1st_bowl.
+Put lemon_juice into the 1st_bowl.
+Put orange_juice into the 1st_bowl.
+Put cloves into the 1st_bowl.
+Put sugar into the 1st_bowl.
+
+Put water into the 1st_bowl.
+Put orange_juice into the 1st_bowl.
+Put rum into the 1st_bowl.
+Put lemon_juice into the 1st_bowl.
+Put dark_chocolate into the 1st_bowl.
+Put pomegranate into the 1st_bowl.
+
+Solidify contents of the 1st_bowl.
+
+Pour contents of the 1st_bowl into the baking dish.
 
 Serves 1.

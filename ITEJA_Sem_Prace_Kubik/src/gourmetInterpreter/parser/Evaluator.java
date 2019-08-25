@@ -68,7 +68,7 @@ public class Evaluator {
                         bowl = itr.next();
                         bowlStack = bowls.get(bowl.getTokenValue().toString());
                         if (bowlStack != null) {
-                            System.out.println(bowlStack.remove(ingredient.getTokenValue().toString()));
+                            bowlStack.remove(ingredient.getTokenValue().toString());
                         } else {
                             throw new ParserException("Ingredient " + ingredient.getTokenValue() + " cannot be removed from bowl which is not declared!");
                         }
@@ -167,7 +167,6 @@ public class Evaluator {
                         if (bowlStack != null) {
                             for (String str : bowlStack) {
                                 Object obj = ingredients.get(str);
-                                System.out.println(obj instanceof Integer);
                                 if (obj instanceof Integer) {
                                     ingredients.put(str, String.valueOf((char) Integer.parseInt(obj.toString())));
                                 } else {
@@ -220,16 +219,20 @@ public class Evaluator {
     private int printCount;
 
     public void printOutput() {
-        System.out.println("-------------------");
+        System.out.println("-------");
         System.out.print("Output: ");
-        System.out.print("\n-------------------");
+        System.out.print("\n-------");
         for (int i = 0; i < printCount; i++) {
             System.out.println("");
             for (Object object : baking_dish) {
-                System.out.print(object + " ");
+                if (object instanceof String) {
+                    System.out.print(object);
+                } else {
+                    System.out.print(object + " ");
+                }
             }
         }
-        System.out.println("\n-------------------");
+        System.out.println("\n-------");
     }
 
     public String getRecipeTitle() {

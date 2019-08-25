@@ -2,75 +2,45 @@ package gourmetInterpreter;
 
 import gourmetInterpreter.lexer.FileReader;
 import gourmetInterpreter.lexer.Lexer;
-import gourmetInterpreter.lexer.Token;
 import gourmetInterpreter.parser.Parser;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import gourmetInterpreter.ads.AbstrTree;
-import gourmetInterpreter.lexer.TokenTypeEnum;
 import gourmetInterpreter.parser.Evaluator;
-import gourmetInterpreter.parser.ParseTree;
 import gourmetInterpreter.parser.ParserException;
-import java.util.Iterator;
-import java.util.Stack;
 
 public class Main {
 
     public static void main(String[] args) throws FileNotFoundException, IOException, ParserException {
-        FileReader fileReader = new FileReader("./gourmet_sample_0.txt");
+        String path = "./gourmet_sample_0.txt";
+        FileReader fileReader = new FileReader(path);
         String code = fileReader.loadRecipe();
-        //System.out.print(code);
         Lexer lexer = new Lexer();
         Parser parser = new Parser(lexer.findTokens(code));
         Evaluator evaluator = new Evaluator(parser.parse());
         evaluator.evaluate();
-
-        System.out.println("------------");
-        System.out.println("Recipe name:");
+        //System.out.println("------------ Gourmet interpreter ------------");
+        System.out.print("------------\n");
+        System.out.println("Recipe name ");
         System.out.print("------------\n");
         System.out.println(evaluator.getRecipeTitle());
-        System.out.print("----------------------");
-        System.out.println("\nRecipe description:");
-        System.out.print("----------------------\n");
-        System.out.println(evaluator.getRecipeDesc());
+        System.out.print("-------------------");
+        System.out.println("\nRecipe description");
+        System.out.print("-------------------\n");
+        printString(evaluator.getRecipeDesc().split(" "), 6);
         evaluator.printOutput();
-        Stack stack = evaluator.bowls.get("2nd_bowl");
-//        System.out.println((int) evaluator.ingredients.get(stack.get(2).toString()).toString().charAt(0)); //char
-//        System.out.println(evaluator.ingredients.get(stack.get(0).toString())); //int
-
-//        Stack<ParseTree> stack = parser.parse();
-//        for (ParseTree p : stack) {
-//            Iterator itr = p.iterator();
-//            while(itr.hasNext()){
-//                System.out.println(itr.next());
-//            }
-//            System.out.println("------------------------------");
-//        }
-//    Stack<Token> stack = lexer.findTokens(code);
-//        for (Token t : stack) {
-//            System.out.println(t);
-//        }
-//        AbstrTree<String> tree = new AbstrTree<>();
-//        tree.insertRoot("c");
-//        tree.setRootAsCurrentRoot();
-//        tree.insertLeaf("x");
-//        tree.insertLeaf("f");
-//        tree.insertLeaf("t");
-//        tree.setChildAsCurrentNode(0);
-//        tree.insertLeaf("a");
-//        tree.insertLeaf("s");
-//        tree.setParentAsCurrentNode();
-//        tree.setChildAsCurrentNode(2);
-//        tree.insertLeaf("w");
-//        tree.insertLeaf("o");
-//        tree.insertLeaf("p");
-//        tree.setChildAsCurrentNode(0);
-//        tree.insertLeaf("b");
-//        
-//        Iterator<String> itr = tree.iterator();
-//        while(itr.hasNext()){
-//            System.out.print(itr.next() + ", ");
-//        } 
     }
 
+    private static void printString(String[] s, int wSCount) {
+        for (int i = 0; i < s.length; i++) {
+            if (s[i].equals(s[s.length - 1])) {
+                System.out.print(s[i]);
+            } else {
+                System.out.print(s[i] + " ");
+            }
+            if ((i + 1) % wSCount == 0) {
+                System.out.println();
+            }
+        }
+        System.out.println(".");
+    }
 }
