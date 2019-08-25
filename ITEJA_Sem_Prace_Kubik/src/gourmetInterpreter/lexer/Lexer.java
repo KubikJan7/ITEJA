@@ -33,7 +33,7 @@ public class Lexer {
                     if (words[i + 1].equals(TokenTypeEnum.G.toString())) {
                         stack.push(new Token(TokenTypeEnum.CHAR, word));
                     } else {
-                        stack.push(new Token(TokenTypeEnum.INTEGER, word));
+                        stack.push(new Token(TokenTypeEnum.INTEGER, Integer.parseInt(word)));
                     }
                 }
             } else {

@@ -54,7 +54,11 @@ public class Evaluator {
                         Token ingredient = itr.next();
                         Token bowl = itr.next();
                         Stack<String> bowlStack = bowls.get(bowl.getTokenValue().toString());
-                        putMethodBody(itr, ingredient, bowl, bowlStack);
+                        if (bowlStack != null) {
+                            bowlStack.push(ingredient.getTokenValue().toString());
+                        } else {
+                            throw new ParserException("Ingredient " + ingredient.getTokenValue() + " cannot be added to bowl which is not declared!");
+                        }
                         break;
                     case REMOVE:
                         if (parseTree.getRootData().getTokenType().equals(TokenTypeEnum.FOR)) {
@@ -63,10 +67,16 @@ public class Evaluator {
                         ingredient = itr.next();
                         bowl = itr.next();
                         bowlStack = bowls.get(bowl.getTokenValue().toString());
-                        removeMethodBody(itr, ingredient, bowl, bowlStack);
+                        if (bowlStack != null) {
+                            System.out.println(bowlStack.remove(ingredient.getTokenValue().toString()));
+                        } else {
+                            throw new ParserException("Ingredient " + ingredient.getTokenValue() + " cannot be removed from bowl which is not declared!");
+                        }
                         break;
                     case FOR:
                         ArrayList<TokenTypeEnum> operations = new ArrayList<>();
+                        ArrayList<String> putParameters = new ArrayList<>();
+                        ArrayList<String> removeParameters = new ArrayList<>();
                         itr.next();//in
                         itr.next();//block
                         ingredient = itr.next();
@@ -88,15 +98,47 @@ public class Evaluator {
                             treeToken = itr.next();
                             type = treeToken.getTokenType();
                         }
+                        for (TokenTypeEnum operation : operations) {
+                            switch (operation) {
+                                case PUT:
+                                    putParameters.add((String) treeToken.getTokenValue()); //ingredient
+                                    putParameters.add((String) itr.next().getTokenValue()); //bowl
+                                    break;
+                                case REMOVE:
+                                    removeParameters.add((String) treeToken.getTokenValue()); //ingredient
+                                    removeParameters.add((String) itr.next().getTokenValue()); //bowl
+                                    break;
+                            }
+                            if (itr.hasNext()) {
+                                treeToken = itr.next();
+                            }
+                        }
                         if (bowlStack != null) {
                             for (int i = 0; i < bowlStack.size(); i++) {
                                 if (operations.isEmpty()) {
                                     break;
-                                } else if (operations.contains(TokenTypeEnum.PUT)) {
-                                    putMethodBody(itr, ingredient, bowl, bowlStack);
-
-                                } else if (operations.contains(TokenTypeEnum.REMOVE)) {
-                                    //removeMethodBody(itr, ingredient, bowl, bowlStack);
+                                }
+                                for (TokenTypeEnum operation : operations) {
+                                    Stack<String> stack;
+                                    switch (operation) {
+                                        case PUT:
+                                            stack = bowls.get(putParameters.get(1));
+                                            if (stack != null) {
+                                                stack.push(bowlStack.get(i));
+                                            } else {
+                                                throw new ParserException("Ingredient " + ingredient.getTokenValue() + " cannot be added to bowl which is not declared!");
+                                            }
+                                            break;
+                                        case REMOVE:
+                                            stack = bowls.get(removeParameters.get(1));
+                                            if (stack != null) {
+                                                stack.remove(bowlStack.get(i));
+                                                --i; //because the remove operation is decreasing the stack index
+                                            } else {
+                                                throw new ParserException("Ingredient " + ingredient.getTokenValue() + " cannot be removed from bowl which is not declared!");
+                                            }
+                                            break;
+                                    }
                                 }
                             }
                         } else {
@@ -165,25 +207,20 @@ public class Evaluator {
                         } else {
                             throw new ParserException("Ingredients of the " + bowl.getTokenValue() + " cannot be combined because this bowl is not declared!");
                         }
+                        break;
+                    case SERVES:
+                        int printCount = (int)itr.next().getTokenValue();
+                        System.out.print("Output: ");
+                        for (int i = 0; i < printCount; i++) {
+                            System.out.println("");
+                            for (Object object : baking_dish) {
+                            System.out.print(object + " ");
+                        }
+                        }
+                        break;
                 }
                 break;
             }
-        }
-    }
-
-    public void putMethodBody(Iterator<Token> itr, Token ingredient, Token bowl, Stack<String> bowlStack) throws ParserException {
-        if (bowlStack != null) {
-            bowlStack.push(ingredient.getTokenValue().toString());
-        } else {
-            throw new ParserException("Ingredient " + ingredient.getTokenValue() + " cannot be added to bowl which is not declared!");
-        }
-    }
-
-    public void removeMethodBody(Iterator<Token> itr, Token ingredient, Token bowl, Stack<String> bowlStack) throws ParserException {
-        if (bowlStack != null) {
-            System.out.println(bowlStack.remove(ingredient.getTokenValue().toString()));
-        } else {
-            throw new ParserException("Ingredient " + ingredient.getTokenValue() + " cannot be removed from bowl which is not declared!");
         }
     }
 
