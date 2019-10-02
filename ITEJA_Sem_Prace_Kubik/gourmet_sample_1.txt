@@ -1,0 +1,40 @@
+Hello World Recipe.
+
+This recipe prints "Hello, World!".
+
+Ingredients.
+72 g hazelnuts
+101 eggs
+108 ml lemon_juice
+111 ml orange_juice
+44 g cloves
+32 g sugar
+87 ml water
+114 ml rum
+100 g dark_chocolate
+33 g pomegranate
+
+Equipment.
+1st_bowl
+
+Method.
+Put hazelnuts into the 1st_bowl.
+Put eggs into the 1st_bowl.
+Put lemon_juice into the 1st_bowl.
+Put lemon_juice into the 1st_bowl.
+Put orange_juice into the 1st_bowl.
+Put cloves into the 1st_bowl.
+Put sugar into the 1st_bowl.
+
+Put water into the 1st_bowl.
+Put orange_juice into the 1st_bowl.
+Put rum into the 1st_bowl.
+Put lemon_juice into the 1st_bowl.
+Put dark_chocolate into the 1st_bowl.
+Put pomegranate into the 1st_bowl.
+
+Solidify contents of the 1st_bowl.
+
+Pour contents of the 1st_bowl into the baking dish.
+
+Serves 1.

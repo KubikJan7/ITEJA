@@ -19,18 +19,21 @@ Equipment.
 
 Method.
 Put flour into the 1st_bowl.
-Put baking powder into the 1st_bowl.
+Put baking_powder into the 1st_bowl.
 Put salt into the 1st_bowl.
-Put white sugar into the 1st_bowl.
+Put white_sugar into the 1st_bowl.
 Put eggs into the 2nd_bowl.
 Put butter into the 2nd_bowl.
 Put milk into the 2nd_bowl.
 
-For ingredient in 2nd_bowl.
-Put ingredient into 1st_bowl.
-Remove ingredient from 2nd_bowl.
-For ingredient end.
+For each ingredient in the 2nd_bowl.
+Put ingredient into the 1st_bowl.
+Remove ingredient from the 2nd_bowl.
+For each ingredient end.
 
-Pour contents of the 1st_bowl into the baking_dish.
+Liquefy contents of the 1st_bowl.
+Combine contents of the 1st_bowl.
+
+Pour contents of the 1st_bowl into the baking dish.
 
 Serves 4.
