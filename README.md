@@ -6,5 +6,5 @@ This project is focused on creating an interpreter of a self-made language calle
 Gourmet is a programming language in which programs look like recipes. 
 
 ### Program structure
-*Title
-dsfsfsf
+* Title
+  * dsfsfsf
