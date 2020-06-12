@@ -17,7 +17,7 @@ Gourmet is a programming language in which programs look like recipes.
   * Program body
 * Serves
   * Prints the content of used stacks
-  * Contains number of how many times the result will be printed
+  * Contains a number of how many times the result will be printed
 
 ### Instructions
   * Put ingredient into the [equipment].
